@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Aceleradora
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
+
+
         }
     }
 }
