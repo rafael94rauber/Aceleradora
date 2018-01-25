@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Aceleradora
 {
-    public class Program
+    public class ExecucaoSistema
     {
         private static Dictionary<int, Funcionario> ListaFuncionarios;
 
