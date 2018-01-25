@@ -33,13 +33,17 @@ namespace Aceleradora
                 CadastroFuncionarios();
                 ExibirRelatorioFuncionarios();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("");
-                Console.WriteLine(" ---------------------------------------------------------");
-                Console.WriteLine("| Aconteceu um erro inesperado, por favor tente novamente |");
-                Console.WriteLine(" ---------------------------------------------------------");
-                Console.WriteLine("");
+                StringBuilder textoSaida = new StringBuilder();
+
+                textoSaida.AppendLine("");
+                textoSaida.AppendLine(" ---------------------------------------------------------");
+                textoSaida.AppendLine("| Aconteceu um erro inesperado, por favor tente novamente |");
+                textoSaida.AppendLine(" ---------------------------------------------------------");
+                textoSaida.AppendLine("");
+
+                Console.Write(textoSaida.ToString());
             }
             finally
             {
@@ -50,6 +54,7 @@ namespace Aceleradora
         private static void MontaRelatorio()
         {
             StringBuilder textoSaida = new StringBuilder();
+
             double impostos = 0;
             double salarios = 0;
             double bonosTotal = 0;
@@ -71,6 +76,7 @@ namespace Aceleradora
                 bonosTotal += funcionario.ValorBonosFuncionario;
             }
 
+            textoSaida.AppendLine("");
             textoSaida.AppendLine($"Total Impostos: {FormataValoresMoedaBrasil(impostos)}");
             textoSaida.AppendLine("");
             textoSaida.AppendLine($"Total Salários: {FormataValoresMoedaBrasil(salarios)}");
@@ -78,13 +84,14 @@ namespace Aceleradora
             textoSaida.AppendLine($"Total Bônus:    {FormataValoresMoedaBrasil(bonosTotal)}");
             textoSaida.AppendLine("");
             textoSaida.AppendLine($"Total Geral:    {FormataValoresMoedaBrasil(impostos + salarios + bonosTotal)}");
+            textoSaida.AppendLine("");
 
             Console.Write(textoSaida.ToString());
         }
 
         private static void ExibirRelatorioFuncionarios()
         {
-            MensagemSaida();
+            MensagemExibicao("SAÍDA");
             MontaRelatorio();
             FecharSessao();
         }
@@ -108,26 +115,22 @@ namespace Aceleradora
             }
         }
 
-        private static void MensagemEntrada()
+        private static void MensagemExibicao(string mensagem)
         {
-            Console.WriteLine("---------------");
-            Console.WriteLine("ENTRADA");
-            Console.WriteLine("---------------");
-            Console.WriteLine("");
-        }
+            StringBuilder textoSaida = new StringBuilder();
 
-        private static void MensagemSaida()
-        {
-            Console.WriteLine("");
-            Console.WriteLine("---------------");
-            Console.WriteLine("SAÍDA");
-            Console.WriteLine("---------------");
-            Console.WriteLine("");
+            textoSaida.AppendLine("");
+            textoSaida.AppendLine("---------------------------");
+            textoSaida.AppendLine($"     {mensagem}      ");
+            textoSaida.AppendLine("---------------------------");
+            textoSaida.AppendLine("");
+
+            Console.Write(textoSaida.ToString());
         }
 
         private static void CadastroFuncionarios()
         {
-            MensagemEntrada();
+            MensagemExibicao("ENTRADA");
 
             OpcaoMenu respostaMenu = OpcaoMenu.SIM;
 
@@ -149,11 +152,15 @@ namespace Aceleradora
 
         private static OpcaoMenu PerguntaOpcaoMenu(string mensagem)
         {
-            Console.WriteLine("");
-            Console.WriteLine("Responda o menu da seguinte maneira");
-            Console.WriteLine("1 para SIM");
-            Console.WriteLine("2 para NÃO");
-            Console.Write(mensagem);
+            StringBuilder textoSaida = new StringBuilder();
+
+            textoSaida.AppendLine("");
+            textoSaida.AppendLine("Responda o menu da seguinte maneira");
+            textoSaida.AppendLine("1 para SIM");
+            textoSaida.AppendLine("2 para NÃO");
+            textoSaida.Append(mensagem);
+
+            Console.Write(textoSaida.ToString());
 
             var valorDigitado = Console.ReadLine();
             var opcaoValida = Int32.TryParse(valorDigitado, out int respostaMenu);
@@ -189,11 +196,15 @@ namespace Aceleradora
             return funcionario;
         }
 
+        private static string RetornaDigitacao(string mensagem)
+        {
+            Console.Write(mensagem);
+            return Console.ReadLine();
+        }
+
         private static string BuscaNomeFuncionario()
         {
-            Console.Write("Nome do Funcionário: ");
-
-            var nome = Console.ReadLine();
+            var nome = RetornaDigitacao("Nome do Funcionário: ");
 
             if (string.IsNullOrWhiteSpace(nome))
             {
@@ -206,9 +217,8 @@ namespace Aceleradora
 
         private static double BuscaSalario()
         {
-            Console.Write("Salário do Funcionário: ");
+            var valorDigitado = RetornaDigitacao("Salário do Funcionário: ");
 
-            var valorDigitado = Console.ReadLine();
             var salarioValido = Double.TryParse(valorDigitado, out double salario);
 
             if (!salarioValido)
@@ -222,10 +232,8 @@ namespace Aceleradora
 
         private static DateTime BuscaContratacao()
         {
-            Console.Write("Data de contratação do Funcionário: ");
+            var valorDigitado = RetornaDigitacao("Data de contratação do Funcionário: ");
 
-            var valorDigitado = Console.ReadLine();
-            
             var dataValida = DateTime.TryParse(valorDigitado, out DateTime contratacao);
 
             if (!dataValida)
