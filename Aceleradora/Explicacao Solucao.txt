@@ -1,0 +1,30 @@
+﻿# Estrutura do Sistema em Geral
+Desenvolvi um algorítimo simples que faz o cadastro de algumas informações de um funcionário dentro de uma lista(Dictionary).
+Dentro dessa lista cada funcionário tem os seus dados salvos em uma estrutura(classe), 
+Que é de onde estas informações são retiradas ou calculadas para exibir na tela para o usuário do sistema. 
+
+As regras do negócio estão dentro desta estrutura de funcionário citada a cima, 
+e dentro dessa classe que faço todos os cálculos que estão sendo mostrados para o usuário final.
+
+A classe "ExecucaoSistema" contem o código que carrega as informações de cada funcionário e exibe o relatório geral dos funcionários deste sistema. 
+
+# Testes unitários 
+Criei um projeto de testes, para poder simular e validar os cálculos que a estrutura(classe) de funcionário estava realizando e exibindo para o usuário.
+
+#Bônus 
+Criei uma regra para bonificar os funcionários cadastrados. A cada 1 ano completo(365 dias) é calculado um valor de 20% sobre o seu salário mensal.
+Exemplo: 
+
+Dados de base para o calculo.
+Nome:					Rafael Rauber 
+Salario:				R$1.500,000
+Data de Contratação:	26/01/2016
+
+O bônus vai ser calculado no dia 25/01/2018.
+
+1500(salário mensal)		 -- 365(dias de um ano completo)  
+(X)valor que será calculado  -- 730(do dia 26/01/2016 ate 25/01/2018 se passaram dois anos equivalentes a 730 dias)
+
+Com essa regra de três simples chegamos no valor de R$3.000,000 em 730 dias 
+
+Em cima destes R$3.000,000 calculamos o valor de 20% para chegarmos em um bônus de R$600,000 em dois anos de trabalho do funcionário 
